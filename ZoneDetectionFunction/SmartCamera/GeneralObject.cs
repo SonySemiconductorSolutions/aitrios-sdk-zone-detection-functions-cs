@@ -27,32 +27,35 @@ namespace SmartCamera
 {
 
 using global::System;
-using global::FlatBuffers;
+using global::System.Collections.Generic;
+using global::Google.FlatBuffers;
 
 public struct GeneralObject : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_23_1_21(); }
   public static GeneralObject GetRootAsGeneralObject(ByteBuffer _bb) { return GetRootAsGeneralObject(_bb, new GeneralObject()); }
   public static GeneralObject GetRootAsGeneralObject(ByteBuffer _bb, GeneralObject obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p.bb_pos = _i; __p.bb = _bb; }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public GeneralObject __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public uint ClassId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public BoundingBox BoundingBoxType { get { int o = __p.__offset(6); return o != 0 ? (BoundingBox)__p.bb.Get(o + __p.bb_pos) : 0; } }
-  public TTable? BoundingBox<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(8); return o != 0 ? (TTable?)__p.__union<TTable>(o) : null; }
+  public SmartCamera.BoundingBox BoundingBoxType { get { int o = __p.__offset(6); return o != 0 ? (SmartCamera.BoundingBox)__p.bb.Get(o + __p.bb_pos) : SmartCamera.BoundingBox.NONE; } }
+  public TTable? BoundingBox<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(8); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
+  public SmartCamera.BoundingBox2d BoundingBoxAsBoundingBox2d() { return BoundingBox<SmartCamera.BoundingBox2d>().Value; }
   public float Score { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public float Iou { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public bool Zoneflag { get { int o = __p.__offset(14); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
-  public static Offset<GeneralObject> CreateGeneralObject(FlatBufferBuilder builder,
+  public static Offset<SmartCamera.GeneralObject> CreateGeneralObject(FlatBufferBuilder builder,
       uint class_id = 0,
-      BoundingBox bounding_box_type = 0,
+      SmartCamera.BoundingBox bounding_box_type = SmartCamera.BoundingBox.NONE,
       int bounding_boxOffset = 0,
       float score = 0.0f,
       float iou = 0.0f,
       bool zoneflag = false) {
-    builder.StartObject(6);
+    builder.StartTable(6);
     GeneralObject.AddIou(builder, iou);
     GeneralObject.AddScore(builder, score);
     GeneralObject.AddBoundingBox(builder, bounding_boxOffset);
@@ -62,18 +65,18 @@ public struct GeneralObject : IFlatbufferObject
     return GeneralObject.EndGeneralObject(builder);
   }
 
-  public static void StartGeneralObject(FlatBufferBuilder builder) { builder.StartObject(6); }
+  public static void StartGeneralObject(FlatBufferBuilder builder) { builder.StartTable(6); }
   public static void AddClassId(FlatBufferBuilder builder, uint classId) { builder.AddUint(0, classId, 0); }
-  public static void AddBoundingBoxType(FlatBufferBuilder builder, BoundingBox boundingBoxType) { builder.AddByte(1, (byte)boundingBoxType, 0); }
+  public static void AddBoundingBoxType(FlatBufferBuilder builder, SmartCamera.BoundingBox boundingBoxType) { builder.AddByte(1, (byte)boundingBoxType, 0); }
   public static void AddBoundingBox(FlatBufferBuilder builder, int boundingBoxOffset) { builder.AddOffset(2, boundingBoxOffset, 0); }
   public static void AddScore(FlatBufferBuilder builder, float score) { builder.AddFloat(3, score, 0.0f); }
   public static void AddIou(FlatBufferBuilder builder, float iou) { builder.AddFloat(4, iou, 0.0f); }
   public static void AddZoneflag(FlatBufferBuilder builder, bool zoneflag) { builder.AddBool(5, zoneflag, false); }
-  public static Offset<GeneralObject> EndGeneralObject(FlatBufferBuilder builder) {
-    int o = builder.EndObject();
-    return new Offset<GeneralObject>(o);
+  public static Offset<SmartCamera.GeneralObject> EndGeneralObject(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<SmartCamera.GeneralObject>(o);
   }
-};
+}
 
 
 }

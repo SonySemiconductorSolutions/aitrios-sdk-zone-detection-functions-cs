@@ -39,12 +39,12 @@ namespace ZoneDetectionFunction
         public class INFERENCE_ITEM
         {
             public uint C { get; set; }
-            public double P { get; set; }
+            public float P { get; set; }
             public int Left { get; set; }
             public int Top { get; set; }
             public int Right { get; set; }
             public int Bottom { get; set; }
-            public double iou { get; set; }
+            public float iou { get; set; }
             public bool Zoneflag { get; set; }
         }
 

@@ -28,8 +28,8 @@ namespace SmartCamera
 
 public enum BoundingBox : byte
 {
- NONE = 0,
- BoundingBox2d = 1,
+  NONE = 0,
+  BoundingBox2d = 1,
 };
 
 
