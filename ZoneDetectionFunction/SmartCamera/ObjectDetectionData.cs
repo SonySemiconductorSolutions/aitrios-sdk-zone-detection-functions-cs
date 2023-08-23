@@ -27,37 +27,41 @@ namespace SmartCamera
 {
 
 using global::System;
-using global::FlatBuffers;
+using global::System.Collections.Generic;
+using global::Google.FlatBuffers;
 
 public struct ObjectDetectionData : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_23_1_21(); }
   public static ObjectDetectionData GetRootAsObjectDetectionData(ByteBuffer _bb) { return GetRootAsObjectDetectionData(_bb, new ObjectDetectionData()); }
   public static ObjectDetectionData GetRootAsObjectDetectionData(ByteBuffer _bb, ObjectDetectionData obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p.bb_pos = _i; __p.bb = _bb; }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public ObjectDetectionData __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public GeneralObject? ObjectDetectionList(int j) { int o = __p.__offset(4); return o != 0 ? (GeneralObject?)(new GeneralObject()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public SmartCamera.GeneralObject? ObjectDetectionList(int j) { int o = __p.__offset(4); return o != 0 ? (SmartCamera.GeneralObject?)(new SmartCamera.GeneralObject()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
   public int ObjectDetectionListLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
 
-  public static Offset<ObjectDetectionData> CreateObjectDetectionData(FlatBufferBuilder builder,
+  public static Offset<SmartCamera.ObjectDetectionData> CreateObjectDetectionData(FlatBufferBuilder builder,
       VectorOffset object_detection_listOffset = default(VectorOffset)) {
-    builder.StartObject(1);
+    builder.StartTable(1);
     ObjectDetectionData.AddObjectDetectionList(builder, object_detection_listOffset);
     return ObjectDetectionData.EndObjectDetectionData(builder);
   }
 
-  public static void StartObjectDetectionData(FlatBufferBuilder builder) { builder.StartObject(1); }
+  public static void StartObjectDetectionData(FlatBufferBuilder builder) { builder.StartTable(1); }
   public static void AddObjectDetectionList(FlatBufferBuilder builder, VectorOffset objectDetectionListOffset) { builder.AddOffset(0, objectDetectionListOffset.Value, 0); }
-  public static VectorOffset CreateObjectDetectionListVector(FlatBufferBuilder builder, Offset<GeneralObject>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateObjectDetectionListVectorBlock(FlatBufferBuilder builder, Offset<GeneralObject>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateObjectDetectionListVector(FlatBufferBuilder builder, Offset<SmartCamera.GeneralObject>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateObjectDetectionListVectorBlock(FlatBufferBuilder builder, Offset<SmartCamera.GeneralObject>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateObjectDetectionListVectorBlock(FlatBufferBuilder builder, ArraySegment<Offset<SmartCamera.GeneralObject>> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateObjectDetectionListVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<Offset<SmartCamera.GeneralObject>>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartObjectDetectionListVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static Offset<ObjectDetectionData> EndObjectDetectionData(FlatBufferBuilder builder) {
-    int o = builder.EndObject();
-    return new Offset<ObjectDetectionData>(o);
+  public static Offset<SmartCamera.ObjectDetectionData> EndObjectDetectionData(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<SmartCamera.ObjectDetectionData>(o);
   }
-};
+}
 
 
 }

@@ -27,15 +27,17 @@ namespace SmartCamera
 {
 
 using global::System;
-using global::FlatBuffers;
+using global::System.Collections.Generic;
+using global::Google.FlatBuffers;
 
 public struct BoundingBox2d : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_23_1_21(); }
   public static BoundingBox2d GetRootAsBoundingBox2d(ByteBuffer _bb) { return GetRootAsBoundingBox2d(_bb, new BoundingBox2d()); }
   public static BoundingBox2d GetRootAsBoundingBox2d(ByteBuffer _bb, BoundingBox2d obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p.bb_pos = _i; __p.bb = _bb; }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public BoundingBox2d __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public int Left { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
@@ -43,12 +45,12 @@ public struct BoundingBox2d : IFlatbufferObject
   public int Right { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Bottom { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
-  public static Offset<BoundingBox2d> CreateBoundingBox2d(FlatBufferBuilder builder,
+  public static Offset<SmartCamera.BoundingBox2d> CreateBoundingBox2d(FlatBufferBuilder builder,
       int left = 0,
       int top = 0,
       int right = 0,
       int bottom = 0) {
-    builder.StartObject(4);
+    builder.StartTable(4);
     BoundingBox2d.AddBottom(builder, bottom);
     BoundingBox2d.AddRight(builder, right);
     BoundingBox2d.AddTop(builder, top);
@@ -56,16 +58,16 @@ public struct BoundingBox2d : IFlatbufferObject
     return BoundingBox2d.EndBoundingBox2d(builder);
   }
 
-  public static void StartBoundingBox2d(FlatBufferBuilder builder) { builder.StartObject(4); }
+  public static void StartBoundingBox2d(FlatBufferBuilder builder) { builder.StartTable(4); }
   public static void AddLeft(FlatBufferBuilder builder, int left) { builder.AddInt(0, left, 0); }
   public static void AddTop(FlatBufferBuilder builder, int top) { builder.AddInt(1, top, 0); }
   public static void AddRight(FlatBufferBuilder builder, int right) { builder.AddInt(2, right, 0); }
   public static void AddBottom(FlatBufferBuilder builder, int bottom) { builder.AddInt(3, bottom, 0); }
-  public static Offset<BoundingBox2d> EndBoundingBox2d(FlatBufferBuilder builder) {
-    int o = builder.EndObject();
-    return new Offset<BoundingBox2d>(o);
+  public static Offset<SmartCamera.BoundingBox2d> EndBoundingBox2d(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<SmartCamera.BoundingBox2d>(o);
   }
-};
+}
 
 
 }

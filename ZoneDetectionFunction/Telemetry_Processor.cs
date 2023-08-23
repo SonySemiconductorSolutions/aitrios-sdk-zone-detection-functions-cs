@@ -31,7 +31,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 using static ZoneDetectionFunction.Models;
-using FlatBuffers;
+using Google.FlatBuffers;
 using SmartCamera;
 
 namespace ZoneDetectionFunction
@@ -141,7 +141,7 @@ namespace ZoneDetectionFunction
                     var bbox2d = objectList.BoundingBox<BoundingBox2d>().Value;
                     INFERENCE_ITEM data = new INFERENCE_ITEM();
                     data.C = objectList.ClassId;
-                    data.P = objectList.Score;
+                    data.P = (float)Math.Round(objectList.Score, 6, MidpointRounding.AwayFromZero);
                     data.iou = objectList.Iou;
                     data.Zoneflag = objectList.Zoneflag;
                     data.Left = bbox2d.Left;
